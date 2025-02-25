@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Search as SearchIcon } from "lucide-react";
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const tokens = [
   { symbol: "OP", name: "Optimism", price: "$0.25", type: "shout", icon: "OP" },
@@ -30,81 +31,96 @@ const Search = () => {
           />
         </div>
 
-        {/* Message Options */}
-        <div className="mb-8">
-          <div className="flex gap-4 text-lg font-medium text-gray-600 border-b border-gray-100 pb-4">
-            <button className="text-black">Send a Message</button>
-            <span>|</span>
-            <button>Message Wall</button>
-          </div>
-        </div>
-
-        {/* Token Lists */}
-        <div className="space-y-6">
-          {/* Shout Section */}
-          <div>
-            <h2 className="text-lg font-medium mb-4">Shout</h2>
-            <div className="space-y-3">
-              {tokens
-                .filter((token) => token.type === "shout")
-                .map((token, index) => (
-                  <div
-                    key={`${token.symbol}-${index}`}
-                    className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
+        {/* Message Options as Tabs */}
+        <Tabs defaultValue="send" className="mb-8">
+          <TabsList className="w-full grid grid-cols-2 gap-4 bg-transparent border-b border-gray-100 pb-4">
+            <TabsTrigger 
+              value="send"
+              className="text-lg font-medium data-[state=active]:text-black data-[state=active]:shadow-none data-[state=active]:bg-transparent"
+            >
+              Send a Message
+            </TabsTrigger>
+            <TabsTrigger 
+              value="wall"
+              className="text-lg font-medium text-gray-600 data-[state=active]:text-black data-[state=active]:shadow-none data-[state=active]:bg-transparent"
+            >
+              Message Wall
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="send">
+            {/* Token Lists */}
+            <div className="space-y-6">
+              {/* Shout Section */}
+              <div>
+                <h2 className="text-lg font-medium mb-4">Shout</h2>
+                <div className="space-y-3">
+                  {tokens
+                    .filter((token) => token.type === "shout")
+                    .map((token, index) => (
                       <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${
-                          token.symbol === "OP"
-                            ? "bg-red-500"
-                            : token.symbol === "TON"
-                            ? "bg-blue-500"
-                            : "bg-blue-700"
-                        }`}
+                        key={`${token.symbol}-${index}`}
+                        className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
                       >
-                        {token.icon}
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${
+                              token.symbol === "OP"
+                                ? "bg-red-500"
+                                : token.symbol === "TON"
+                                ? "bg-blue-500"
+                                : "bg-blue-700"
+                            }`}
+                          >
+                            {token.icon}
+                          </div>
+                          <div>
+                            <div className="font-medium">{token.name}</div>
+                            <div className="text-gray-500">{token.price}</div>
+                          </div>
+                        </div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
                       </div>
-                      <div>
-                        <div className="font-medium">{token.name}</div>
-                        <div className="text-gray-500">{token.price}</div>
-                      </div>
-                    </div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                ))}
-            </div>
-          </div>
+                    ))}
+                </div>
+              </div>
 
-          {/* Whisper Section */}
-          <div>
-            <h2 className="text-lg font-medium mb-4">Whisper</h2>
-            <div className="space-y-3">
-              {tokens
-                .filter((token) => token.type === "whisper")
-                .map((token, index) => (
-                  <div
-                    key={`${token.symbol}-${index}`}
-                    className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
+              {/* Whisper Section */}
+              <div>
+                <h2 className="text-lg font-medium mb-4">Whisper</h2>
+                <div className="space-y-3">
+                  {tokens
+                    .filter((token) => token.type === "whisper")
+                    .map((token, index) => (
                       <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${
-                          token.symbol === "ETH" ? "bg-gray-700" : "bg-blue-500"
-                        }`}
+                        key={`${token.symbol}-${index}`}
+                        className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
                       >
-                        {token.icon}
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${
+                              token.symbol === "ETH" ? "bg-gray-700" : "bg-blue-500"
+                            }`}
+                          >
+                            {token.icon}
+                          </div>
+                          <div>
+                            <div className="font-medium">{token.name}</div>
+                            <div className="text-gray-500">{token.price}</div>
+                          </div>
+                        </div>
+                        <div className="w-3 h-3 rounded-full bg-gray-900"></div>
                       </div>
-                      <div>
-                        <div className="font-medium">{token.name}</div>
-                        <div className="text-gray-500">{token.price}</div>
-                      </div>
-                    </div>
-                    <div className="w-3 h-3 rounded-full bg-gray-900"></div>
-                  </div>
-                ))}
+                    ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </TabsContent>
+          <TabsContent value="wall">
+            <div className="text-center text-gray-500 py-8">
+              Message Wall Content
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
       <Navigation />
     </div>
