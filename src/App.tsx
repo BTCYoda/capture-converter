@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import SearchModuleOne from "./pages/SearchModuleOne";
 import SearchModuleTwo from "./pages/SearchModuleTwo";
 import SearchModuleThree from "./pages/SearchModuleThree";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/search-module-1" element={<SearchModuleOne />} />
           <Route path="/search-module-2" element={<SearchModuleTwo />} />
           <Route path="/search-module-3" element={<SearchModuleThree />} />
+          <Route path="/settings" element={<Settings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
