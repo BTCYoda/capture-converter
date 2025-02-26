@@ -4,10 +4,29 @@ export interface Squad {
   name: string;
   description?: string;
   color: string;
-  privacy: "public" | "private";
-  memberLimit?: number;
   createdAt: Date;
   memberCount: number;
+  members: SquadMember[];
+  pendingInvites: PendingInvite[];
+  externalLinks?: SquadLink[];
+}
+
+export interface SquadMember {
+  walletAddress: string;
+  joinedAt: Date;
+  role: 'admin' | 'member';
+  lastActive?: Date;
+}
+
+export interface PendingInvite {
+  walletAddress: string;
+  invitedAt: Date;
+  expiresAt: Date;
+}
+
+export interface SquadLink {
+  title: string;
+  url: string;
 }
 
 export interface SquadMessage {
