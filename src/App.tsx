@@ -11,6 +11,7 @@ import SearchModuleOne from "./pages/SearchModuleOne";
 import SearchModuleTwo from "./pages/SearchModuleTwo";
 import SearchModuleThree from "./pages/SearchModuleThree";
 import Settings from "./pages/Settings";
+import Messages from "./pages/Messages";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,8 @@ const App = () => (
           <Route path="/search-module-2" element={<SearchModuleTwo />} />
           <Route path="/search-module-3" element={<SearchModuleThree />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/messages/:walletAddress" element={<Messages />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
