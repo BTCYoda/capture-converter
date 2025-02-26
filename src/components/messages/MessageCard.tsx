@@ -1,7 +1,9 @@
 
 import { cn } from "@/lib/utils";
-import WalletAddress from "./WalletAddress";
 import { format } from "date-fns";
+import { Copy } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface MessageCardProps {
   message: {
@@ -18,13 +20,17 @@ interface MessageCardProps {
 
 const MessageCard = ({ message }: MessageCardProps) => {
   const formatTimestamp = (date: Date) => {
-    const now = new Date();
     return `${format(date, "hh:mm a 'UTC'")}
 ${format(date, "yyyy.MM.dd")}`;
   };
 
+  const copyAddress = (address: string) => {
+    navigator.clipboard.writeText(address);
+    toast.success("Address copied to clipboard");
+  };
+
   return (
-    <div className="p-4 bg-white rounded-lg shadow-sm">
+    <div className="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
       <div className="flex gap-3">
         <div
           className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium text-white shrink-0"
@@ -34,8 +40,18 @@ ${format(date, "yyyy.MM.dd")}`;
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
-            <div className="text-sm text-gray-600">
-              <span className="font-medium">{message.senderAddress}</span> said..
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span className="font-medium cursor-pointer hover:text-gray-900 transition-colors">
+                {message.senderAddress}
+              </span>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6"
+                onClick={() => copyAddress(message.senderAddress)}
+              >
+                <Copy className="h-3 w-3" />
+              </Button>
             </div>
             <div className="text-xs text-gray-500 text-right whitespace-pre leading-tight">
               {formatTimestamp(message.timestamp)}
