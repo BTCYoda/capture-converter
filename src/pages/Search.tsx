@@ -21,6 +21,12 @@ const Search = () => {
         >
           Search Module 2
         </Button>
+        <Button
+          onClick={() => navigate("/search-module-3")}
+          className="w-full py-6 text-lg"
+        >
+          Search Module 3
+        </Button>
       </div>
     </Layout>
   );
